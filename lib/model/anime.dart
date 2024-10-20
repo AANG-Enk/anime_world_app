@@ -1,12 +1,12 @@
 import 'package:anime_world_app/model/genre.dart';
-import 'package:anime_world_app/model/thumbnail.dart';
+import 'package:anime_world_app/model/thumbnail_format.dart';
 import 'package:anime_world_app/model/title.dart';
 
 class Anime{
   final int id;
   final String title;
-  final Map<String, Thumbnail>? image;
-  final Map<String, Title>? titles;
+  final ThumbnailFormat? image;
+  final List<Title>? titles;
   final String? titleEnglish;
   final String? titleJapanese;
   final String? type;
@@ -28,84 +28,109 @@ class Anime{
   final String? season;
   final int? year;
   final Broadcast? broadcast;
-  final Map<String, Demographic>? producers;
-  final Map<String, Demographic>? licensors;
-  final Map<String, Demographic>? studios;
-  final Map<String, Genre>? genres;
-  final List<dynamic>? explicitGenres;
-  final List<dynamic>? themes;
-  final Map<String, Demographic>? demographics;
+  final List<Demographic>? producers;
+  final List<Demographic>? licensors;
+  final List<Demographic>? studios;
+  final List<Genre>? genres;
 
 
   Anime({
     required this.id,
     required this.title,
-    required this.image,
-    required this.titles,
-    required this.titleEnglish,
-    required this.titleJapanese,
-    required this.type,
-    required this.source,
-    required this.episodes,
-    required this.status,
-    required this.airing,
-    required this.aired,
-    required this.duration,
-    required this.rating,
-    required this.score,
-    required this.scoredBy,
-    required this.rank,
-    required this.popularity,
-    required this.members,
-    required this.favorites,
-    required this.synopsis,
-    required this.background,
-    required this.season,
-    required this.year,
+    this.image,
+    this.titles,
+    this.titleEnglish,
+    this.titleJapanese,
+    this.type,
+    this.source,
+    this.episodes,
+    this.status,
+    this.airing,
+    this.aired,
+    this.duration,
+    this.rating,
+    this.score,
+    this.scoredBy,
+    this.rank,
+    this.popularity,
+    this.members,
+    this.favorites,
+    this.synopsis,
+    this.background,
+    this.season,
+    this.year,
     this.broadcast,
     this.producers,
     this.licensors,
     this.studios,
     this.genres,
-    this.explicitGenres,
-    this.themes,
-    this.demographics,
   });
 
   factory Anime.fromJson(Map<String, dynamic> json) => Anime(
     id: json['mal_id'], 
     title: json['title'], 
-    image: json['images'] != null ? Map.from(json['images']).map((k,v) => MapEntry<String, Thumbnail>(k, Thumbnail.fromJson(v))) : null, 
-    titles: json['titles'] != null ? Map.from(json['titles']).map((k,v) => MapEntry<String, Title>(k, Title.fromJson(v))) : null, 
+    image: json['images'] != null ? ThumbnailFormat.fromJson(json['images']) : null, 
+    titles: json['titles'] != null ? List<Title>.from(json['titles'].map((x) => Title.fromJson(x))) : null, 
     titleEnglish: json['title_english'] ?? '', 
     titleJapanese: json['title_japanese'] ?? '', 
     type: json['type'] ?? '', 
     source: json['source'] ?? '', 
-    episodes: json['episodes'] ?? '', 
+    episodes: json['episodes'] ?? 0, 
     status: json['status'] ?? '', 
     airing: json['airing'] ?? '', 
     aired: json['aired'] != null ? Aired.fromJson(json['aired']) : null, 
     duration: json['duration'] ?? '', 
     rating: json['rating'] ?? '', 
-    score: json['score'] ?? '', 
-    scoredBy: json['scored_by'] ?? '', 
-    rank: json['rank'] ?? '', 
-    popularity: json['popularity'] ?? '', 
-    members: json['members'] ?? '', 
-    favorites: json['favorites'] ?? '', 
+    score: json['score'] ?? 0.0, 
+    scoredBy: json['scored_by'] ?? 0, 
+    rank: json['rank'] ?? 0, 
+    popularity: json['popularity'] ?? 0, 
+    members: json['members'] ?? 0, 
+    favorites: json['favorites'] ?? 0, 
     synopsis: json['synopsis'] ?? '', 
     background: json['background'] ?? '', 
     season: json['season'] ?? '', 
-    year: json['year'] ?? '', 
+    year: json['year'] ?? 0, 
     broadcast: json['broadcast'] != null ? Broadcast.fromJson(json['broadcast']) : null,
-    producers: json['producers'] != null ? Map.from(json['producers']).map((k,v) => MapEntry<String, Demographic>(k, Demographic.fromJson(v))) : null, 
-    licensors: json['licensors'] != null ? Map.from(json['licensors']).map((k,v) => MapEntry<String, Demographic>(k, Demographic.fromJson(v))) : null, 
-    studios: json['studios'] != null ? Map.from(json['studios']).map((k,v) => MapEntry<String, Demographic>(k, Demographic.fromJson(v))) : null, 
-    genres: json['genres'] != null ? Map.from(json['genres']).map((k,v) => MapEntry<String, Genre>(k, Genre.fromJson(v))) : null, 
-    explicitGenres: json['explicit_genres'] != null ? List<dynamic>.from(json['explicit_genres'].map((eg) => eg)) : null, 
-    themes: List<dynamic>.from(json["themes"].map((x) => x)), 
-    demographics: json['demographics'] != null ? Map.from(json['demographics']).map((k,v) => MapEntry<String, Demographic>(k, Demographic.fromJson(v))) : null,
+    producers: json['producers'] != null ? List<Demographic>.from(json['producers'].map((a) => Demographic.fromJson(a))) : null, 
+    licensors: json['licensors'] != null ? List<Demographic>.from(json['licensors'].map((y) => Demographic.fromJson(y))) : null, 
+    studios: json['studios'] != null ? List<Demographic>.from(json['studios'].map((z) => Demographic.fromJson(z))) : null, 
+    genres: json['genres'] != null ? List<Genre>.from(json['genres'].map((z) => Genre.fromJson(z))) : null, 
   );
+
+  Map<String, dynamic> toJson(){
+    return {
+      'id' : id,
+      'title' : title,
+      'image' : image?.toJson(),
+      'titles' : titles,
+      'titleEnglish' : titleEnglish,
+      'titleJapanese' : titleJapanese,
+      'type' : type,
+      'source' : source,
+      'episodes' : episodes,
+      'status' : status,
+      'airing' : airing,
+      'aired' : aired,
+      'duration' : duration,
+      'rating' : rating,
+      'score' : score,
+      'scoredBy' : scoredBy,
+      'rank' : rank,
+      'popularity' : popularity,
+      'members' : members,
+      'favorites' : favorites,
+      'synopsis' : synopsis,
+      'background' : background,
+      'season' : season,
+      'year' : year,
+      'broadcast' : broadcast,
+      'producers' : producers,
+      'licensors' : licensors,
+      'studios' : studios,
+      'genres' : genres,
+    };
+  }
 }
 
 class Aired {
@@ -115,10 +140,10 @@ class Aired {
     final String? string;
 
     Aired({
-        required this.from,
-        required this.to,
-        required this.prop,
-        required this.string,
+        this.from,
+        this.to,
+        this.prop,
+        this.string,
     });
 
     factory Aired.fromJson(Map<String, dynamic> json) => Aired(
@@ -134,8 +159,8 @@ class Prop {
     final From? to;
 
     Prop({
-        required this.from,
-        required this.to,
+        this.from,
+        this.to,
     });
 
     factory Prop.fromJson(Map<String, dynamic> json) => Prop(
@@ -151,9 +176,9 @@ class From {
     final int? year;
 
     From({
-        required this.day,
-        required this.month,
-        required this.year,
+        this.day,
+        this.month,
+        this.year,
     });
 
     factory From.fromJson(Map<String, dynamic> json) => From(
@@ -170,10 +195,10 @@ class Broadcast {
     final String? string;
 
     Broadcast({
-        required this.day,
-        required this.time,
-        required this.timezone,
-        required this.string,
+        this.day,
+        this.time,
+        this.timezone,
+        this.string,
     });
 
     factory Broadcast.fromJson(Map<String, dynamic> json) => Broadcast(
@@ -186,10 +211,10 @@ class Broadcast {
 }
 
 class Demographic {
-    final int? malId;
-    final Type? type;
-    final String? name;
-    final String? url;
+    final int malId;
+    final String type;
+    final String name;
+    final String url;
 
     Demographic({
         required this.malId,
@@ -199,30 +224,10 @@ class Demographic {
     });
 
     factory Demographic.fromJson(Map<String, dynamic> json) => Demographic(
-        malId: json["mal_id"] ?? '',
-        type: json["type"] != null ? typeValues.map[json["type"]]! : null,
-        name: json["name"] ?? '',
-        url: json["url"] ?? '',
+        malId: json["mal_id"],
+        type: json["type"],
+        name: json["name"],
+        url: json["url"],
     );
 
-}
-
-enum Type {
-    ANIME
-}
-
-final typeValues = EnumValues({
-    "anime": Type.ANIME
-});
-
-class EnumValues<T> {
-    Map<String, T> map;
-    late Map<T, String> reverseMap;
-
-    EnumValues(this.map);
-
-    Map<T, String> get reverse {
-            reverseMap = map.map((k, v) => MapEntry(v, k));
-            return reverseMap;
-    }
 }

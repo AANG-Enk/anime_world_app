@@ -8,6 +8,13 @@ class Title{
   });
 
   factory Title.fromJson(Map<String, dynamic> json){
-    return Title(type: json['type'], title: json['title']);
+    return Title(type: json['type']??'', title: json['title']??'');
+  }
+
+  Map<String, dynamic> toJson(){
+    return {
+      'type'  : type,
+      'title' : title,
+    };
   }
 }
