@@ -5,7 +5,7 @@ import 'package:anime_world_app/model/title.dart';
 class Anime{
   final int id;
   final String title;
-  final ThumbnailFormat? image;
+  final ThumbnailFormat image;
   final List<Title>? titles;
   final String? titleEnglish;
   final String? titleJapanese;
@@ -37,7 +37,7 @@ class Anime{
   Anime({
     required this.id,
     required this.title,
-    this.image,
+    required this.image,
     this.titles,
     this.titleEnglish,
     this.titleJapanese,
@@ -69,7 +69,7 @@ class Anime{
   factory Anime.fromJson(Map<String, dynamic> json) => Anime(
     id: json['mal_id'], 
     title: json['title'], 
-    image: json['images'] != null ? ThumbnailFormat.fromJson(json['images']) : null, 
+    image: ThumbnailFormat.fromJson(json['images']), 
     titles: json['titles'] != null ? List<Title>.from(json['titles'].map((x) => Title.fromJson(x))) : null, 
     titleEnglish: json['title_english'] ?? '', 
     titleJapanese: json['title_japanese'] ?? '', 

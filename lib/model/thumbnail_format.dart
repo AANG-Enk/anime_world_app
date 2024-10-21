@@ -1,12 +1,12 @@
 import 'package:anime_world_app/model/thumbnail.dart';
 
 class ThumbnailFormat{
-  final Thumbnail? jpg;
-  final Thumbnail? webp;
+  final Thumbnail jpg;
+  final Thumbnail webp;
 
   ThumbnailFormat({
-    this.jpg,
-    this.webp,
+    required this.jpg,
+    required this.webp,
   });
 
   factory ThumbnailFormat.fromJson(Map<String, dynamic> json){
@@ -18,8 +18,14 @@ class ThumbnailFormat{
 
   Map<String, dynamic> toJson(){
     return {
-      'jpg' : jpg?.toJson(),
-      'webp': webp?.toJson(),
+      'jpg' : jpg.toJson(),
+      'webp': webp.toJson(),
     };
+  }
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return 'Thumbnail Format (jpg: $jpg,webp: $webp)';
   }
 }

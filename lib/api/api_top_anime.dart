@@ -15,7 +15,7 @@ Future<Iterable<Anime>> getTopAnime({
   final response = await http.get(Uri.parse(link.linkListTopAnime(type, filter, page, limit)));
    if (response.statusCode == 200) {
     final data = json.decode(response.body);
-    final animes = data['data'].map((json) => Anime.fromJson(json)).toList();
+    List<Anime> animes = List<Anime>.from(data['data'].map((x) => Anime.fromJson(x))).toList();
     return animes;
    }else{
     debugPrint("Error: ${response.statusCode}");
