@@ -101,7 +101,7 @@ class ComponentAnimeCard extends StatelessWidget{
                         },
                       ),
                       Text(
-                        '(${getScore(anime.score!/2 ?? 0.0)})',
+                        '(${anime.score ?? 0.0})',
                       )
                     ],
                   ),

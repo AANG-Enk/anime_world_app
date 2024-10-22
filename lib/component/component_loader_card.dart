@@ -8,7 +8,7 @@ class ComponentLoaderCard extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 400.0,
+      height: 350.0,
       child: ListView.separated(
         itemCount: panjang,
         scrollDirection: Axis.horizontal,
