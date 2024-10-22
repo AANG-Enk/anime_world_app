@@ -24,9 +24,38 @@ class _HomeScreenState extends State<HomeScreen>{
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                'Anime World',
-                style: headlineApp,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Anime World',
+                    style: headlineApp,
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.info),
+                    color: Theme.of(context).primaryColor,
+                    iconSize: 25.0,
+                    onPressed: (){
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context){
+                          return AlertDialog(
+                            title: Text('Information'),
+                            content: Text('This is information icon.'),
+                            actions: [
+                              TextButton(
+                                onPressed: (){
+                                  Navigator.of(context).pop();
+                                }, 
+                                child: Text('Ok')
+                              )
+                            ],
+                          );
+                        }
+                      );
+                    }, 
+                  )
+                ],
               ),
               const SizedBox(height: 10.0,),
               const Column(
