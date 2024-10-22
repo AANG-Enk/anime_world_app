@@ -1,5 +1,6 @@
 import 'package:anime_world_app/component/component_text_title.dart';
 import 'package:anime_world_app/widget/widget_favorit_anime.dart';
+import 'package:anime_world_app/widget/widget_popular_anime.dart';
 import 'package:anime_world_app/widget/widget_top_anime.dart';
 import 'package:anime_world_app/widget/widget_top_movie.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen>{
                   SizedBox(height: 25.0,),
                   ComponentTextTitle(title: 'Most Popular Anime', link: ''),
                   SizedBox(height: 15.0,),
+                  WidgetPopularAnime(),
                   SizedBox(height: 25.0,),
                   ComponentTextTitle(title: 'Top Ranked Movie', link: ''),
                   SizedBox(height: 15.0,),
