@@ -9,7 +9,7 @@ class WidgetTopMovie extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Future.delayed(const Duration(seconds: 2), () => getTopAnime(type: 'movie', filter: '', page: 1, limit: 10)), 
+      future: Future.delayed(const Duration(seconds: 8), () => getTopAnime(type: 'movie', filter: '', page: 1, limit: 10)), 
       builder: (context, snapshot){
         if(snapshot.connectionState == ConnectionState.waiting){
           return const ComponentLoaderCard(panjang: 10);
