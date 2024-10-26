@@ -24,7 +24,7 @@ class ComponentAnimeCard extends StatelessWidget{
           final anime = animes.elementAt(index);
           return GestureDetector(
             onTap: (){
-              print("Ditekan Id : ${anime.id}");
+              // print("Ditekan Id : ${anime.id}");
             },
             child: Column(
               children: [
@@ -82,12 +82,12 @@ class ComponentAnimeCard extends StatelessWidget{
                   child: Row(
                     children: [
                       RatingBar.builder(
-                        initialRating: getScore(anime.score!/2 ?? 0.0),
+                        initialRating: getScore(anime.score!/2),
                         minRating: 1,
                         direction: Axis.horizontal,
                         allowHalfRating: true, 
                         itemCount: 5, 
-                        itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
+                        itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
                         itemSize: 15.0,
                         unratedColor: Theme.of(context).primaryColor,
                         itemBuilder: (context, _){
@@ -97,7 +97,7 @@ class ComponentAnimeCard extends StatelessWidget{
                           );
                         }, 
                         onRatingUpdate: (rating) {
-                          print(rating);
+                          // print(rating);
                         },
                       ),
                       Text(

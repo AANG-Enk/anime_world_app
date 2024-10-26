@@ -5,7 +5,11 @@ String getNumberFormat(int number){
 }
 
 double getScore(double nilai){
-  return double.parse(nilai.toStringAsFixed(1));
+  if(nilai == null){
+    return 0.0;
+  }else{
+    return double.parse(nilai.toStringAsFixed(1));
+  }
 }
 
 String getDateTime(DateTime? date){

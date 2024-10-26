@@ -102,7 +102,7 @@ class Anime{
     return {
       'id' : id,
       'title' : title,
-      'image' : image?.toJson(),
+      'image' : image.toJson(),
       'titles' : titles,
       'titleEnglish' : titleEnglish,
       'titleJapanese' : titleJapanese,

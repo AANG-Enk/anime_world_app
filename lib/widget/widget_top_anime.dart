@@ -1,7 +1,6 @@
 import 'package:anime_world_app/api/api_top_anime.dart';
 import 'package:anime_world_app/component/component_anime_card.dart';
 import 'package:anime_world_app/component/component_loader_card.dart';
-import 'package:anime_world_app/model/anime.dart';
 import 'package:flutter/material.dart';
 
 class WidgetTopAnime extends StatelessWidget{
