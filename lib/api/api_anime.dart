@@ -23,3 +23,21 @@ Future<Iterable<Anime>> getTopAnime({
     throw Exception("Failed to get data!");
    }
 }
+
+Future<Iterable<Anime>> getUpcomingAnime({
+  required String filter,
+  required int page,
+  required int limit,
+}) async {
+  Link link = Link();
+  final response = await http.get(Uri.parse(link.linkListAnimeUpcoming(filter, page, limit)));
+  if (response.statusCode == 200) {
+    final data = json.decode(response.body);
+    List<Anime> animes = List<Anime>.from(data['data'].map((x) => Anime.fromJson(x))).toList();
+    return animes;
+  }else{
+    debugPrint("Error: ${response.statusCode}");
+    debugPrint("Body: ${response.body}");
+    throw Exception("Failed to get data!");
+  }
+}

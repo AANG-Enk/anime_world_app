@@ -1,4 +1,5 @@
 import 'package:anime_world_app/component/component_text_title.dart';
+import 'package:anime_world_app/widget/widget_banner_anime.dart';
 import 'package:anime_world_app/widget/widget_favorit_anime.dart';
 import 'package:anime_world_app/widget/widget_popular_anime.dart';
 import 'package:anime_world_app/widget/widget_top_anime.dart';
@@ -93,6 +94,8 @@ class _HomeScreenState extends State<HomeScreen>{
               const SizedBox(height: 10.0,),
               const Column(
                 children: [
+                  WidgetBannerAnime(),
+                  SizedBox(height: 25.0,),
                   ComponentTextTitle(title: 'Top Ranked Anime', link: ''),
                   SizedBox(height: 15.0,),
                   WidgetTopAnime(),

@@ -1,22 +1,23 @@
 import 'package:anime_world_app/api/api_anime.dart';
-import 'package:anime_world_app/component/component_anime_card.dart';
+import 'package:anime_world_app/component/component_banner_anime.dart';
 import 'package:anime_world_app/component/component_loader_card.dart';
 import 'package:flutter/material.dart';
 
-class WidgetPopularAnime extends StatelessWidget{
-  const WidgetPopularAnime({super.key});
+class WidgetBannerAnime extends StatelessWidget{
+  const WidgetBannerAnime({super.key});
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Future.delayed(const Duration(seconds: 6), () => getTopAnime(type: 'tv', filter: 'bypopularity', page: 1, limit: 10)), 
+      future: Future.delayed(const Duration(seconds: 2), () => getUpcomingAnime(filter: '', page: 1, limit: 10)), 
       builder: (context, snapshot){
         if(snapshot.connectionState == ConnectionState.waiting){
-          return const ComponentLoaderCard(panjang: 10);
+          // return const ComponentLoaderCard(panjang: 10);
+          return const CircularProgressIndicator();
         }
 
         if(snapshot.hasData){
-          return ComponentAnimeCard(animes: snapshot.data!, title: 'Top Ranked Anime',);
+          return ComponentBannerAnime(animes: snapshot.data!);
         }
 
         if(snapshot.hasError){
