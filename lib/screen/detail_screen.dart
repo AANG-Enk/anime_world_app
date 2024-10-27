@@ -1,4 +1,3 @@
-import 'package:anime_world_app/model/anime.dart';
 import 'package:anime_world_app/widget/widget_anime_by_id.dart';
 import 'package:flutter/material.dart';
 

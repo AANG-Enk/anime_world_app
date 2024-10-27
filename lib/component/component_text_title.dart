@@ -1,3 +1,4 @@
+import 'package:anime_world_app/screen/more_screen.dart';
 import 'package:flutter/material.dart';
 
 class ComponentTextTitle extends StatelessWidget{
@@ -8,18 +9,29 @@ class ComponentTextTitle extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-      Text(
-        title,
-        style: Theme.of(context).textTheme.bodyLarge,
-      ),
-      Text(
-        'Selengkapnya',
-        style: Theme.of(context).textTheme.bodyMedium,
-      ),
-    ],
-  );
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          title,
+          style: Theme.of(context).textTheme.bodyLarge,
+        ),
+        Container(
+          alignment: Alignment.centerRight,
+          child: TextButton(
+            onPressed: (){
+              Navigator.push(context,MaterialPageRoute(builder: (context) => MoreScreen(link: link)));
+            },
+            style: const ButtonStyle(
+              overlayColor: WidgetStateColor.transparent,
+            ),
+            child: Text(
+              'Selengkapnya',
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }

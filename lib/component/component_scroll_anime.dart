@@ -1,32 +1,89 @@
+import 'package:anime_world_app/api/api_anime.dart';
+import 'package:anime_world_app/config/link.dart';
 import 'package:anime_world_app/model/anime.dart';
-import 'package:anime_world_app/screen/detail_screen.dart';
 import 'package:anime_world_app/utils/format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shimmer/shimmer.dart';
 
-class ComponentAnimeCard extends StatelessWidget{
-  const ComponentAnimeCard({super.key,required this.animes, required this.title});
-  final Iterable<Anime> animes;
-  final String title;
+class ComponentScrollAnime extends StatefulWidget{
+  const ComponentScrollAnime({super.key});
   
   @override
+  State<ComponentScrollAnime> createState() => _ComponentScrollAnime();
+}
+
+class _ComponentScrollAnime extends State<ComponentScrollAnime>{
+  final ScrollController _scrollController = ScrollController();
+
+  int page = 1;
+  final int limit = 10;
+  final List<Anime> items = [];
+  bool isLoading = false;
+  bool hasMore = true;
+  final Link link = Link(); 
+
+   @override
+  void initState() {
+    super.initState();
+    _loadMoreItems();
+    _scrollController.addListener(_onScroll);
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 200) {
+      _loadMoreItems(); 
+    }
+  }
+
+  Future<void> _loadMoreItems() async {
+    if (isLoading || !hasMore) return;
+
+    setState(() => isLoading = true);
+    Iterable<Anime> newAnimes = await getListAnime(link: link.linkListTopAnime('tv', '', page, limit));
+    print(newAnimes);
+    setState(() {
+      items.addAll(newAnimes.map((data) => data).toList());
+      page++;
+      isLoading = false;
+      if (newAnimes.length < limit) {
+        hasMore = false;
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // Mendapatkan lebar layar
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    // Menentukan jumlah kolom berdasarkan lebar layar
+    int crossAxisCount = screenWidth < 600 ? 3 : 6; // 3 kolom untuk layar kecil, 6 kolom untuk layar besar
+
     return SizedBox(
-      height: 430.0,
-      child: ListView.separated(
-        separatorBuilder: (context, index){
-          return const SizedBox(width: 10.0,);
-        }, 
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
-        itemCount: animes.length,
+      height: MediaQuery.of(context).size.height,
+      child: GridView.builder(
+        controller: _scrollController,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: crossAxisCount,
+          childAspectRatio: 0.37,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10
+        ), 
+        itemCount: items.length,
         itemBuilder: (context, index){
-          final anime = animes.elementAt(index);
-          return GestureDetector(
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen(mal_id: anime.id)));
-            },
+          if(index == items.length){
+            if(!isLoading) _loadMoreItems();
+            return Center(child: CircularProgressIndicator(),);
+          }
+          return Container(
+            height: 400.0, // Set tinggi item
             child: Column(
               children: [
                 Card(
@@ -38,7 +95,7 @@ class ComponentAnimeCard extends StatelessWidget{
                     borderRadius: const BorderRadius.all(Radius.circular(15.0)),
                     child: FadeInImage.assetNetwork(
                       placeholder: '', 
-                      image: anime.image.jpg.large_image,
+                      image: items.elementAt(index).image.jpg.large_image,
                       fit: BoxFit.cover,
                       width: 150.0,
                       height: 250.0,
@@ -71,7 +128,7 @@ class ComponentAnimeCard extends StatelessWidget{
                         color: Theme.of(context).primaryColor,
                       ),
                       Text(
-                        getNumberFormat(anime.members ?? 0),
+                        getNumberFormat(items.elementAt(index).members ?? 0),
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ],
@@ -83,7 +140,7 @@ class ComponentAnimeCard extends StatelessWidget{
                   child: Row(
                     children: [
                       RatingBar.builder(
-                        initialRating: getScore(anime.score!/2),
+                        initialRating: getScore(items.elementAt(index).score!/2),
                         minRating: 1,
                         direction: Axis.horizontal,
                         allowHalfRating: true, 
@@ -102,7 +159,7 @@ class ComponentAnimeCard extends StatelessWidget{
                         },
                       ),
                       Text(
-                        '(${anime.score ?? 0.0})',
+                        '(${items.elementAt(index).score ?? 0.0})',
                       )
                     ],
                   ),
@@ -111,7 +168,7 @@ class ComponentAnimeCard extends StatelessWidget{
                 SizedBox(
                   width: 150.0,
                   child: Text(
-                    '${anime.type} (${anime.episodes} Eps)',
+                    '${items.elementAt(index).type} (${items.elementAt(index).episodes} Eps)',
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
@@ -119,7 +176,7 @@ class ComponentAnimeCard extends StatelessWidget{
                 SizedBox(
                   width: 150.0,
                   child: Text(
-                    '${getDateTime(anime.aired?.from)} - ${getDateTime(anime.aired?.to)}',
+                    '${getDateTime(items.elementAt(index).aired?.from)} - ${getDateTime(items.elementAt(index).aired?.to)}',
                     style: Theme.of(context).textTheme.bodyMedium,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
@@ -129,7 +186,7 @@ class ComponentAnimeCard extends StatelessWidget{
                 SizedBox(
                   width: 150.0,
                   child: Text(
-                    anime.title,
+                    items.elementAt(index).title,
                     style: Theme.of(context).textTheme.bodyMedium,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
@@ -137,8 +194,8 @@ class ComponentAnimeCard extends StatelessWidget{
                 )
               ],
             ),
-          );          
-        }, 
+          );
+        },
       ),
     );
   }

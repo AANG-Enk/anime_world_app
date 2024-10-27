@@ -1,4 +1,5 @@
 import 'package:anime_world_app/component/component_text_title.dart';
+import 'package:anime_world_app/config/link.dart';
 import 'package:anime_world_app/widget/widget_banner_anime.dart';
 import 'package:anime_world_app/widget/widget_favorit_anime.dart';
 import 'package:anime_world_app/widget/widget_popular_anime.dart';
@@ -17,6 +18,7 @@ class _HomeScreenState extends State<HomeScreen>{
   @override
   Widget build(BuildContext context) {
     TextStyle headlineApp = Theme.of(context).textTheme.headlineMedium!;
+    Link link = Link();
     return Scaffold(
       body: SingleChildScrollView(
         child : Padding(
@@ -92,11 +94,11 @@ class _HomeScreenState extends State<HomeScreen>{
                 ],
               ),
               const SizedBox(height: 10.0,),
-              const Column(
+              Column(
                 children: [
                   WidgetBannerAnime(),
                   SizedBox(height: 25.0,),
-                  ComponentTextTitle(title: 'Top Ranked Anime', link: ''),
+                  ComponentTextTitle(title: 'Top Ranked Anime', link: link.linkListTopAnime('tv', '', 2, 10)),
                   SizedBox(height: 15.0,),
                   WidgetTopAnime(),
                   SizedBox(height: 25.0,),
