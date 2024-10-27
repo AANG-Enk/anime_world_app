@@ -12,8 +12,7 @@ class WidgetBannerAnime extends StatelessWidget{
       future: Future.delayed(const Duration(seconds: 2), () => getUpcomingAnime(filter: '', page: 1, limit: 10)), 
       builder: (context, snapshot){
         if(snapshot.connectionState == ConnectionState.waiting){
-          // return const ComponentLoaderCard(panjang: 10);
-          return const CircularProgressIndicator();
+          return const ComponentLoaderCard(panjang: 1);
         }
 
         if(snapshot.hasData){

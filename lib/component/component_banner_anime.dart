@@ -1,6 +1,7 @@
 import 'package:anime_world_app/model/anime.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ComponentBannerAnime extends StatefulWidget{
@@ -35,10 +36,26 @@ class _ComponentBannerAnime extends State<ComponentBannerAnime>{
                   borderRadius: BorderRadius.circular(10.0),
                   child: AspectRatio(
                     aspectRatio: 16/9,
-                    child: Image.network(
-                      anime.image.jpg.large_image,
+                    child: FadeInImage.assetNetwork(
+                      placeholder: '', 
+                      image: anime.image.jpg.large_image,
                       fit: BoxFit.cover,
-                    ),
+                      imageErrorBuilder: (context, error, stackTrace){
+                        return const Center(child: Text('Failed Load Image'),);
+                      },
+                      fadeInDuration: const Duration(milliseconds: 5000),
+                      fadeInCurve: Curves.easeInOut,
+                      placeholderErrorBuilder: (context, error, stackTrace){
+                        return Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!, 
+                          highlightColor: Colors.grey[100]!,
+                          child: Container(
+                            height: 350.0,
+                            color: Colors.white,
+                          )
+                        );
+                      },
+                    )
                   ),
                 ),
               );
