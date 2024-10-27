@@ -41,3 +41,19 @@ Future<Iterable<Anime>> getUpcomingAnime({
     throw Exception("Failed to get data!");
   }
 }
+
+Future<Anime> getAnimeById({
+  required int mal_id,
+}) async {
+  Link link = Link();
+  final response = await http.get(Uri.parse(link.linkAnimeById(mal_id)));
+  if (response.statusCode == 200) {
+    final data = json.decode(response.body);
+    Anime animes = Anime.fromJson(data['data']);
+    return animes;
+  }else{
+    debugPrint("Error: ${response.statusCode}");
+    debugPrint("Body: ${response.body}");
+    throw Exception("Failed to get data!");
+  }
+}

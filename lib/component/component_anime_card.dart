@@ -1,5 +1,7 @@
 import 'package:anime_world_app/model/anime.dart';
+import 'package:anime_world_app/screen/detail_screen.dart';
 import 'package:anime_world_app/utils/format.dart';
+import 'package:anime_world_app/widget/widget_anime_by_id.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shimmer/shimmer.dart';
@@ -24,7 +26,7 @@ class ComponentAnimeCard extends StatelessWidget{
           final anime = animes.elementAt(index);
           return GestureDetector(
             onTap: (){
-              // print("Ditekan Id : ${anime.id}");
+              Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen(mal_id: anime.id)));
             },
             child: Column(
               children: [
