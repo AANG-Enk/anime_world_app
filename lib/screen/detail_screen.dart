@@ -20,7 +20,7 @@ class DetailScreen extends StatelessWidget{
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextButton.icon(
+              IconButton(
                 onPressed: (){
                   Navigator.pop(context);
                 }, 
@@ -28,13 +28,9 @@ class DetailScreen extends StatelessWidget{
                   Icons.arrow_back, 
                   color: Theme.of(context).primaryColor,
                 ),
-                label: Text(
-                  'Back', 
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
                 style: ButtonStyle(
                   overlayColor: WidgetStateProperty.all(Colors.transparent),
-                ),  
+                ),
               ),
               const SizedBox(height: 20.0),
               WidgetAnimeById(id: mal_id),

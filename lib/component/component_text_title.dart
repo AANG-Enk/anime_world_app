@@ -2,9 +2,10 @@ import 'package:anime_world_app/screen/more_screen.dart';
 import 'package:flutter/material.dart';
 
 class ComponentTextTitle extends StatelessWidget{
-  const ComponentTextTitle({super.key, required this.title, required this.link});
+  const ComponentTextTitle({super.key, required this.title, required this.filter, required this.type});
   final String title;
-  final String link;
+  final String filter;
+  final String type;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class ComponentTextTitle extends StatelessWidget{
           alignment: Alignment.centerRight,
           child: TextButton(
             onPressed: (){
-              Navigator.push(context,MaterialPageRoute(builder: (context) => MoreScreen(link: link)));
+              Navigator.push(context,MaterialPageRoute(builder: (context) => MoreScreen(title: title, filter: filter, type: type)));
             },
             style: const ButtonStyle(
               overlayColor: WidgetStateColor.transparent,

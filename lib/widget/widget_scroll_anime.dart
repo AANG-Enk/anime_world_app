@@ -1,5 +1,4 @@
 import 'package:anime_world_app/api/api_anime.dart';
-import 'package:anime_world_app/component/component_scroll_anime.dart';
 import 'package:flutter/material.dart';
 
 class WidgetScrollAnime extends StatelessWidget{
