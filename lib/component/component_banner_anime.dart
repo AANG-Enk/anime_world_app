@@ -1,4 +1,5 @@
 import 'package:anime_world_app/model/anime.dart';
+import 'package:anime_world_app/screen/detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:shimmer/shimmer.dart';
@@ -31,6 +32,9 @@ class _ComponentBannerAnime extends State<ComponentBannerAnime>{
             itemBuilder: (context, index, realIndex){
               final anime = widget.animes.elementAt(index);
               return InkWell(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen(mal_id: anime.id)));
+                },
                 splashColor: Theme.of(context).primaryColor,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10.0),
