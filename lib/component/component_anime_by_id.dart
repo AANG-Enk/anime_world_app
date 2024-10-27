@@ -1,5 +1,6 @@
 import 'package:anime_world_app/model/anime.dart';
 import 'package:anime_world_app/utils/format.dart';
+import 'package:anime_world_app/utils/read_more_text.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -81,10 +82,7 @@ class ComponentAnimeById extends StatelessWidget{
           ],
         ),
         const SizedBox(height: 15.0,),
-        Text(
-          anime.synopsis!,
-          style: Theme.of(context).textTheme.bodyMedium,
-        ),
+        ReadMoreText(longText: anime.synopsis!),
         const SizedBox(height: 15.0,),
         Container(
           width: double.infinity,
