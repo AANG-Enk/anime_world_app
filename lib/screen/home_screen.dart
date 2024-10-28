@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen>{
                               ),
                             ),
                             content:SizedBox(
-                              height: 120.0,
+                              height: 200.0,
                               child:  Column(
                                 children: [
                                   Center(

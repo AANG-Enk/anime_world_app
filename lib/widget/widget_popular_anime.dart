@@ -17,6 +17,7 @@ class WidgetPopularAnime extends StatelessWidget{
 
         if(snapshot.hasData){
           return ComponentAnimeCard(animes: snapshot.data!, title: 'Top Ranked Anime',);
+          print(snapshot.data);
         }
 
         if(snapshot.hasError){

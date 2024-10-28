@@ -17,7 +17,7 @@ class Anime{
   final Aired? aired;
   final String? duration;
   final String? rating;
-  final double? score;
+  final num? score;
   final int? scoredBy;
   final int? rank;
   final int? popularity;
@@ -81,7 +81,7 @@ class Anime{
     aired: json['aired'] != null ? Aired.fromJson(json['aired']) : null, 
     duration: json['duration'] ?? '', 
     rating: json['rating'] ?? '', 
-    score: json['score'] ?? 0.0, 
+    score: json['score'] ?? 0, 
     scoredBy: json['scored_by'] ?? 0, 
     rank: json['rank'] ?? 0, 
     popularity: json['popularity'] ?? 0, 

@@ -71,7 +71,7 @@ class ComponentAnimeCard extends StatelessWidget{
                         color: Theme.of(context).primaryColor,
                       ),
                       Text(
-                        getNumberFormat(anime.members ?? 0),
+                        anime.members.toString(),
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ],
@@ -102,7 +102,7 @@ class ComponentAnimeCard extends StatelessWidget{
                         },
                       ),
                       Text(
-                        '(${anime.score ?? 0.0})',
+                        '(${anime.score.toString()})',
                       )
                     ],
                   ),

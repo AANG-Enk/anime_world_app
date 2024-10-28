@@ -63,7 +63,7 @@ class _ComponentScrollAnime extends State<ComponentScrollAnime>{
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    int crossAxisCount = screenWidth < 600 ? 3 : 6;
+    int crossAxisCount = screenWidth < 600 ? 2 : 8;
 
     return SizedBox(
       height: MediaQuery.of(context).size.height,
