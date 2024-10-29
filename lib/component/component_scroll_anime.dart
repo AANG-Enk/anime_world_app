@@ -6,6 +6,7 @@ import 'package:anime_world_app/utils/format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class ComponentScrollAnime extends StatefulWidget{
   const ComponentScrollAnime({super.key, required this.filter, required this.type});
@@ -71,7 +72,7 @@ class _ComponentScrollAnime extends State<ComponentScrollAnime>{
         controller: _scrollController,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: crossAxisCount,
-          childAspectRatio: 0.37,
+          childAspectRatio: 0.55,
           crossAxisSpacing: 10,
           mainAxisSpacing: 10
         ), 
@@ -79,7 +80,7 @@ class _ComponentScrollAnime extends State<ComponentScrollAnime>{
         itemBuilder: (context, index){
           if(index == items.length){
             if(!isLoading) _loadMoreItems();
-            return Center(child: CircularProgressIndicator(),);
+            return const Center(child: CircularProgressIndicator(),);
           }
           return SizedBox(
             height: 400.0,
@@ -88,113 +89,118 @@ class _ComponentScrollAnime extends State<ComponentScrollAnime>{
                 Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen(mal_id: items.elementAt(index).id)));
               },
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Card(
                     elevation: 5,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(15.0)),
-                      child: FadeInImage.assetNetwork(
-                        placeholder: '', 
-                        image: items.elementAt(index).image.jpg.large_image,
-                        fit: BoxFit.cover,
-                        width: 150.0,
-                        height: 250.0,
-                        imageErrorBuilder: (context, error, stackTrace){
-                          return const Center(child: Text('Failed Load Image'),);
-                        },
-                        fadeInDuration: const Duration(milliseconds: 5000),
-                        fadeInCurve: Curves.easeInOut,
-                        placeholderErrorBuilder: (context, error, stackTrace){
-                          return Shimmer.fromColors(
-                            baseColor: Colors.grey[300]!, 
-                            highlightColor: Colors.grey[100]!,
-                            child: Container(
-                              width: 150.0,
-                              height: 250.0,
-                              color: Colors.white,
-                            )
-                          );
-                        },
-                      )
-                    ),
-                  ),
-                  const SizedBox(height: 5.0,),
-                  SizedBox(
-                    width: 150.0,
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.person_2_rounded,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        Text(
-                          getNumberFormat(items.elementAt(index).members ?? 0),
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 5.0,),
-                  SizedBox(
-                    width: 150.0,
-                    child: Row(
-                      children: [
-                        RatingBar.builder(
-                          initialRating: getScore(items.elementAt(index).score!/2),
-                          minRating: 1,
-                          direction: Axis.horizontal,
-                          allowHalfRating: true, 
-                          itemCount: 5, 
-                          itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
-                          itemSize: 15.0,
-                          unratedColor: Theme.of(context).primaryColor,
-                          itemBuilder: (context, _){
-                            return const Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                            );
-                          }, 
-                          onRatingUpdate: (rating) {
-                            // print(rating);
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.all(Radius.circular(15.0)),
+                        child: FadeInImage.memoryNetwork(
+                          placeholder: kTransparentImage, 
+                          image: items.elementAt(index).image.jpg.large_image,
+                          fit: BoxFit.cover,
+                          imageErrorBuilder: (context, error, stackTrace){
+                            return const Center(child: Text('Failed Load Image'),);
                           },
-                        ),
-                        Text(
-                          '(${items.elementAt(index).score ?? 0.0})',
+                          fadeInDuration: const Duration(milliseconds: 5000),
+                          fadeInCurve: Curves.easeInOut,
+                          placeholderErrorBuilder: (context, error, stackTrace){
+                            return Shimmer.fromColors(
+                              baseColor: Colors.grey[300]!, 
+                              highlightColor: Colors.grey[100]!,
+                              child: Container(
+                                color: Colors.white,
+                              )
+                            );
+                          },
                         )
-                      ],
+                      ),
                     ),
                   ),
                   const SizedBox(height: 5.0,),
-                  SizedBox(
-                    width: 150.0,
-                    child: Text(
-                      '${items.elementAt(index).type} (${items.elementAt(index).episodes} Eps)',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
+                  LayoutBuilder(
+                    builder: (context, constraint){
+                      return Row(
+                        children: [
+                          Icon(
+                            Icons.person_2_rounded,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          Text(
+                            getNumberFormat(items.elementAt(index).members ?? 0),
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        ],
+                      );
+                    }
                   ),
                   const SizedBox(height: 5.0,),
-                  SizedBox(
-                    width: 150.0,
-                    child: Text(
-                      '${getDateTime(items.elementAt(index).aired?.from)} - ${getDateTime(items.elementAt(index).aired?.to)}',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                    ),
+                  LayoutBuilder(
+                    builder: (context, constraint){
+                      return Row(
+                        children: [
+                          RatingBar.builder(
+                            initialRating: getScore(items.elementAt(index).score!/2),
+                            minRating: 1,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true, 
+                            itemCount: 5, 
+                            itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
+                            itemSize: 15.0,
+                            unratedColor: Theme.of(context).primaryColor,
+                            itemBuilder: (context, _){
+                              return const Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                              );
+                            }, 
+                            onRatingUpdate: (rating) {
+                              // print(rating);
+                            },
+                          ),
+                          Text(
+                            '(${items.elementAt(index).score ?? 0.0})',
+                          )
+                        ],
+                      );
+                    }
                   ),
                   const SizedBox(height: 5.0,),
-                  SizedBox(
-                    width: 150.0,
-                    child: Text(
-                      items.elementAt(index).title,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                    ),
-                  )
+                  LayoutBuilder(
+                    builder: (context, constraint){
+                      return Text(
+                        '${items.elementAt(index).type} (${items.elementAt(index).episodes} Eps)',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      );
+                    }
+                  ),
+                  const SizedBox(height: 5.0,),
+                  LayoutBuilder(
+                    builder: (context, constraint){
+                      return Text(
+                        '${getDateTime(items.elementAt(index).aired?.from)} - ${getDateTime(items.elementAt(index).aired?.to)}',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                      );
+                    }
+                  ),
+                  const SizedBox(height: 5.0,),
+                  LayoutBuilder(
+                    builder: (context, constraint){
+                      return Text(
+                        items.elementAt(index).title,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                      );
+                    }
+                  ),
                 ],
               ),
             ),

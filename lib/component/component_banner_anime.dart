@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class ComponentBannerAnime extends StatefulWidget{
   const ComponentBannerAnime({
@@ -40,8 +41,8 @@ class _ComponentBannerAnime extends State<ComponentBannerAnime>{
                   borderRadius: BorderRadius.circular(10.0),
                   child: AspectRatio(
                     aspectRatio: 16/9,
-                    child: FadeInImage.assetNetwork(
-                      placeholder: '', 
+                    child: FadeInImage.memoryNetwork(
+                      placeholder: kTransparentImage, 
                       image: anime.image.jpg.large_image,
                       fit: BoxFit.cover,
                       imageErrorBuilder: (context, error, stackTrace){

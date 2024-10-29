@@ -3,6 +3,7 @@ import 'package:anime_world_app/utils/format.dart';
 import 'package:anime_world_app/utils/read_more_text.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class ComponentAnimeById extends StatelessWidget{
   const ComponentAnimeById({super.key, required this.anime});
@@ -20,8 +21,8 @@ class ComponentAnimeById extends StatelessWidget{
           children: [
             ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(15.0)),
-              child: FadeInImage.assetNetwork(
-                placeholder: '', 
+              child: FadeInImage.memoryNetwork(
+                placeholder: kTransparentImage, 
                 image: anime.image.jpg.large_image,
                 fit: BoxFit.cover,
                 width: 175.0,

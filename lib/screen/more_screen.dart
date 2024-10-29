@@ -32,20 +32,17 @@ class MoreScreen extends StatelessWidget{
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Expanded(
-                          child: IconButton(
-                            onPressed: (){
-                              Navigator.pop(context);
-                            }, 
-                            icon: Icon(
-                              Icons.arrow_back, 
-                              color: Theme.of(context).primaryColor,
-                            ),
-                            style: ButtonStyle(
-                              overlayColor: WidgetStateProperty.all(Colors.transparent),
-                            ),
+                      Expanded(
+                        child: IconButton(
+                          onPressed: (){
+                            Navigator.pop(context);
+                          }, 
+                          icon: Icon(
+                            Icons.arrow_back, 
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          style: ButtonStyle(
+                            overlayColor: WidgetStateProperty.all(Colors.transparent),
                           ),
                         ),
                       ),
@@ -56,66 +53,63 @@ class MoreScreen extends StatelessWidget{
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Expanded(
-                          child: IconButton(
-                            icon: const Icon(Icons.info),
-                            color: Theme.of(context).primaryColor,
-                            iconSize: 25.0,
-                            onPressed: (){
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context){
-                                  return AlertDialog(
-                                    backgroundColor: Theme.of(context).shadowColor,
-                                    title: Center(
-                                      child: Text(
-                                      'Anime World App',
-                                        style: Theme.of(context).textTheme.headlineMedium
-                                      ),
+                      Expanded(
+                        child: IconButton(
+                          icon: const Icon(Icons.info),
+                          color: Theme.of(context).primaryColor,
+                          iconSize: 25.0,
+                          onPressed: (){
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context){
+                                return AlertDialog(
+                                  backgroundColor: Theme.of(context).shadowColor,
+                                  title: Center(
+                                    child: Text(
+                                    'Anime World App',
+                                      style: Theme.of(context).textTheme.headlineMedium
                                     ),
-                                    content:SizedBox(
-                                      height: 200.0,
-                                      child:  Column(
-                                        children: [
-                                          Center(
-                                            child: Text(
-                                              'This application offers a variety of features, such as searching for anime by genre, popularity, or latest releases, as well as the ability to mark favorite anime.',
-                                              style: Theme.of(context).textTheme.bodyMedium,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 15.0,),
-                                          Center(
-                                            child: Text(
-                                              'v. 1.0.0 Beta version',
-                                              style: Theme.of(context).textTheme.bodyMedium,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: (){
-                                          Navigator.of(context).pop();
-                                        },
-                                        style: ButtonStyle(
-                                          overlayColor: WidgetStateProperty.all(Colors.transparent),
-                                        ), 
-                                        child: Center(
+                                  ),
+                                  content:SizedBox(
+                                    height: 200.0,
+                                    child:  Column(
+                                      children: [
+                                        Center(
                                           child: Text(
-                                            'Oke',
+                                            'This application offers a variety of features, such as searching for anime by genre, popularity, or latest releases, as well as the ability to mark favorite anime.',
                                             style: Theme.of(context).textTheme.bodyMedium,
                                           ),
                                         ),
-                                      )
-                                    ],
-                                  );
-                                }
-                              );
-                            }, 
-                          ),
+                                        const SizedBox(height: 15.0,),
+                                        Center(
+                                          child: Text(
+                                            'v. 1.0.0 Beta version',
+                                            style: Theme.of(context).textTheme.bodyMedium,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: (){
+                                        Navigator.of(context).pop();
+                                      },
+                                      style: ButtonStyle(
+                                        overlayColor: WidgetStateProperty.all(Colors.transparent),
+                                      ), 
+                                      child: Center(
+                                        child: Text(
+                                          'Oke',
+                                          style: Theme.of(context).textTheme.bodyMedium,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                );
+                              }
+                            );
+                          }, 
                         ),
                       )
                     ],

@@ -4,6 +4,7 @@ import 'package:anime_world_app/utils/format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class ComponentAnimeCard extends StatelessWidget{
   const ComponentAnimeCard({super.key,required this.animes, required this.title});
@@ -36,8 +37,8 @@ class ComponentAnimeCard extends StatelessWidget{
                   ),
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(15.0)),
-                    child: FadeInImage.assetNetwork(
-                      placeholder: '', 
+                    child: FadeInImage.memoryNetwork(
+                      placeholder: kTransparentImage, 
                       image: anime.image.jpg.large_image,
                       fit: BoxFit.cover,
                       width: 150.0,
@@ -45,7 +46,6 @@ class ComponentAnimeCard extends StatelessWidget{
                       imageErrorBuilder: (context, error, stackTrace){
                         return const Center(child: Text('Failed Load Image'),);
                       },
-                      fadeInDuration: const Duration(milliseconds: 5000),
                       fadeInCurve: Curves.easeInOut,
                       placeholderErrorBuilder: (context, error, stackTrace){
                         return Shimmer.fromColors(
