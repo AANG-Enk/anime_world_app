@@ -72,7 +72,7 @@ class _ComponentScrollAnime extends State<ComponentScrollAnime>{
         controller: _scrollController,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: crossAxisCount,
-          childAspectRatio: 0.49,
+          childAspectRatio: 0.4,
           crossAxisSpacing: 10,
           mainAxisSpacing: 10
         ), 
